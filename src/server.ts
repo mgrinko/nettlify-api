@@ -1,24 +1,13 @@
-import fs from "fs";
-import express from "express";
+import express from 'express';
+import serverless from 'serverless-http';
 
-const PORT = process.env.PORT || 5000;
 const app = express();
 
-const todos = [
-  { "id": 1, "title": "HTML", "conpleted": true },
-  { "id": 2, "title": "CSS", "conpleted": true },
-  { "id": 3, "title": "JS", "conpleted": true },
-  { "id": 4, "title": "React", "conpleted": false }
-];
-
-app.get('/', (req, res) => {
-  // const text = fs.readFileSync('./data.json', 'utf-8');
-  // const todos = JSON.parse(text);
-
-  res.send(todos);
+app.get('/api/hello', (req, res) => {
+  res.send('Hello from the API endpoint!');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
-});
+// Convert the Express app to a serverless function
+const handler = serverless(app);
 
+export { handler };
